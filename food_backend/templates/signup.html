@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Food Delivery</title>
+
+    <link rel="stylesheet" href="/static/css/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/hover-min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <section class="login">
+        <div class="container">
+            <div class="form">
+                <form action="/signup" method="POST">
+                    <fieldset>
+                        <legend>Create Account</legend>
+
+                        <p class="label">Full Name</p>
+                        <input type="text" name="name" placeholder="Enter your name..." required>
+
+                        <p class="label">Email</p>
+                        <input type="email" name="email" placeholder="Enter your email..." required>
+
+                        <p class="label">Phone Number</p>
+                        <input type="text" name="phone" placeholder="Enter your phone..." required>
+
+                        <p class="label">Password</p>
+                        <input type="password" name="password" placeholder="Enter password..." required>
+
+                        <input type="submit" value="Create Account" class="btn-primary">
+
+                        <p style="text-align:center;margin-top:10px;">
+                            Already have an account?
+                            <a href="/login">Login</a>
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

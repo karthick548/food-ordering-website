@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order History</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css">
+
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="../static/css/hover-min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+
+<!-- Navbar Start -->
+<header class="navbar">
+    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+        <div class="container">
+            <div class="logo">
+                <a href="/" title="Logo">
+                    <img src="../static/img/logo.png" alt="Logo" class="img-responsive">
+                </a>
+            </div>
+
+            <div class="menu text-right">
+                <ul>
+                    <li><a href="/" class="hvr-underline-from-center">Home</a></li>
+                    <li><a href="/categories" class="hvr-underline-from-center">Categories</a></li>
+                    <li><a href="/foods" class="hvr-underline-from-center">Foods</a></li>
+                    <li><a href="/order" class="hvr-underline-from-center">Order</a></li>
+                    <li><a href="/contact" class="hvr-underline-from-center">Contact</a></li>
+
+                    {% if session.get('user_id') %}
+                        <li><a href="/order-history">Order History</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/signup">Signup</a></li>
+                    {% endif %}
+
+                    <li>
+                        <a id="shopping-cart" class="shopping-cart">
+                            <i class="fa fa-cart-arrow-down"></i>
+                            <span class="badge">0</span>
+                        </a>
+
+                        <div id="cart-content" class="cart-content">
+                            <h3 class="text-center">Shopping Cart</h3>
+                            <table class="cart-table" border="0">
+                                <tr>
+                                    <th>Food</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </table>
+                            <a href="/order" class="btn-primary">Confirm Order</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- Navbar End -->
+
+
+<!-- Page Header Section (Like Others) -->
+<section class="food-search text-center">
+    <div class="container">
+        <h2 class="text-white">Your Order History</h2>
+    </div>
+</section>
+
+
+<!-- Order History Section -->
+<section class="categories">
+    <div class="container">
+        <h2 class="text-center">Past Orders</h2>
+        <div class="heading-border"></div>
+
+        {% if orders %}
+            {% for order in orders %}
+            <div class="food-menu-box" style="margin-bottom:20px;">
+                <div class="food-menu-desc" style="width:100%; margin-left:0;">
+                    <h3>Order #{{ order.id }}</h3>
+                    <p class="food-price"><strong>Total:</strong> ₹{{ order.total }}</p>
+                    <p class="food-details"><strong>Items:</strong> {{ order.items }}</p>
+
+                    <button class="btn-primary cancel-btn" data-id="{{ order.id }}" 
+                        style="margin-top:10px; background:red;">
+                        Cancel Order
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h3 class="text-center">No orders found.</h3>
+        {% endif %}
+    </div>
+</section>
+
+
+<!-- Footer -->
+<section class="footer">
+    <div class="container">
+        <div class="grid-3">
+            <div>
+                <h3>About Us</h3><br>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+
+            <div>
+                <h3>Site Map</h3><br>
+                <div class="site-links">
+                    <a href="/categories">Categories</a>
+                    <a href="/foods">Foods</a>
+                    <a href="/order">Order</a>
+                    <a href="/contact">Contact</a>
+                </div>
+            </div>
+
+            <div class="social">
+                <h3>Follow Us</h3><br>
+                <ul>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="copyright text-center">
+    <p>&copy; 2024 All rights reserved.</p>
+</section>
+
+
+<!-- Cancel Order Script -->
+<script>
+document.querySelectorAll(".cancel-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        let id = this.getAttribute("data-id");
+
+        if(confirm("Are you sure you want to cancel this order?")) {
+
+            fetch(`/cancel-order/${id}`, { method: "POST" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Order cancelled successfully!");
+                    location.reload();
+                } else {
+                    alert("Failed to cancel order.");
+                }
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>

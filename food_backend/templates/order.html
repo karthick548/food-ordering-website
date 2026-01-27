@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Food Delivery Website</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css">
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="../static/css/hover-min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <!-- Navigation Section Start -->
+    <header class="navbar">
+        <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+            <div class="container">
+                <!-- logo -->
+                <div class="logo">
+                    <a href="/" title="Logo">
+                        <img src="../static/img/logo.png" alt="Logo" class="img-responsive">
+                    </a>
+                </div>
+                <!-- Main Menu -->
+                <div class="menu text-right">
+                    <ul>
+                         <li><a class="hvr-underline-from-center" href="/">Home</a></li>
+                        <li><a class="hvr-underline-from-center" href="/categories">Categories</a></li>
+                        <li><a class="hvr-underline-from-center" href="/foods">Foods</a></li>
+                        <li><a class="hvr-underline-from-center" href="/order">Order</a></li>
+                        <li><a class="hvr-underline-from-center" href="/contact">Contact</a></li>
+                        {% if session.get('user_id') %}
+        <li><a href="/order-history">Order History</a></li>
+        <li><a href="/logout">Logout</a></li>
+    {% else %}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup">Signup</a></li>
+    {% endif %}
+                        <li>
+                            <a id="shopping-cart" class="shopping-cart">
+                                <i class="fa fa-cart-arrow-down"></i>
+                                <span class="badge">0</span>
+                            </a>
+                            <div id="cart-content" class="cart-content">
+                                <h3 class="text-center">Shopping Cart</h3>
+                                <table class="cart-table" border="0">
+                                    <tr>
+                                        <th>Food</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    
+                                </table>
+                                <a href="/order" class="btn-primary">Confirm Order</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Navigation Section End -->
+
+    <!-- Food Order Section Start -->
+    <section class="order">
+        <div class="container">
+            <h2 class="text-center">Fill this form to confirm your order.</h2>
+            <table class="tbl-full" border="0">
+    <tr>
+        <th>S.N.</th>
+        <th>Food</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+
+    <tbody id="order-items"></tbody>
+</table>
+
+            <form id="order-form" class="form">
+                <fieldset>
+                    <legend>Delivery Details</legend>
+                    <p class="label">Full Name</p>
+                    <input id="name" type="text" placeholder="Enter your name..." required>
+                    <p id="nameError" class="error-msg"></p>
+                    <p class="label">Phone Number</p>
+                    <input  id ="phone" type="contact" placeholder="Enter your phone..." required>
+                    <p id="phoneError" class="error-msg"></p>
+                    <p class="label">Email</p>
+                    <input type="email" placeholder="Enter your email..." required>
+                    <p class="label">Address</p>
+                    <input type="text" placeholder="Enter your address..." required>
+                    <input type="submit" value="Confirm Order" class="btn-primary">
+                </fieldset>
+            </form>
+        </div>
+    </section>
+    <div id="order-success" class="success-box" style="display:none;">
+    <h2 class="text-center">🎉 Order Placed Successfully!</h2>
+    <p class="text-center">Thank you for your order, we will deliver your food soon.</p>
+    <div class="text-center">
+        <a href="/" class="btn-primary">Go to Home</a>
+    </div>
+</div>
+    <!-- Food Order Section End -->
+
+    <!-- Footer Section Start -->
+    <section class="footer">
+        <div class="container">
+            <div class="grid-3">
+                <div class="text-center">
+                    <h3>About Us</h3><br>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat officia, temporibus expedita dicta eligendi harum architecto fugiat sint, laudantium omnis animi. Voluptas praesentium maiores minima pariatur necessitatibus consequuntur, similique assumenda.</p>
+                </div>
+                <div class="texr-center">
+                    <h3>Site Map</h3><br>
+                    <div class="site-links">
+                        <a href="/categories">Categories</a>
+                        <a href="/foods">Foods</a>
+                        <a href="/order">Order</a>
+                        <a href="/contact">Contact</a>
+                        <a href="/login">Login</a>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <h3>Social Links</h3><br>
+                    <div class="social">
+                        <ul>
+                            <li><a href="https://www.facebook.com/share/16qNiuNCyr/"><img src="https://img.icons8.com/color/48/null/facebook-new.png"/></a></li>
+                            <li><a href="https://www.instagram.com/x__karthick__x?igsh=b2d0N3Vkd3ppb2dh"><img src="https://img.icons8.com/fluency/48/null/instagram-new.png"/></a></li>
+                            <li><a href="https://x.com/Karthic56580435"><img src="https://img.icons8.com/color/48/null/twitter--v1.png"/></a></li>
+                            <li><a href="https://www.linkedin.com/in/karthick-m-19937b272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="https://img.icons8.com/color/48/null/linkedin-circled--v1.png"/></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section End -->
+
+    <!-- Copyright Section start -->
+    <section class="copyright">
+        <div class="container text-center">
+            <p>All rights reserved. Design By <a href="#">KARTHICK</a></p>
+        </div>
+        <a id="back-to-top" class="btn-primary">
+            <i class="fa fa-angle-double-up"></i>
+        </a>
+    </section>
+    <!-- Copyright Section End -->
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- Jquery UI -->
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <!-- Custom JS -->
+    <script src="../static/js/custom.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let items = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let tbody = document.getElementById("order-items");
+
+    loadOrderItems();
+
+    function loadOrderItems() {
+        tbody.innerHTML = "";
+        let sNo = 1;
+        let grandTotal = 0;
+
+        items.forEach(item => {
+            grandTotal += item.total;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${sNo++}</td>
+                    <td><img src="${item.img}" width="45"></td>
+                    <td>${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td>${item.qty}</td>
+                    <td>$${item.total}</td>
+                    <td><a href="#" class="btn-delete" data-name="${item.name}">&times;</a></td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML += `
+            <tr>
+                <th colspan="5">Total</th>
+                <th>$${grandTotal}</th>
+                <th></th>
+            </tr>
+        `;
+    }
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("btn-delete")) {
+            e.preventDefault();
+
+            let name = e.target.getAttribute("data-name");
+            items = items.filter(item => item.name !== name);
+            localStorage.setItem("cartItems", JSON.stringify(items));
+            loadOrderItems();
+        }
+    });
+
+});
+
+
+// 🔥🔥🔥 FINAL SUBMIT HANDLER — ONLY ONE — EVERYTHING WORKS HERE 🔥🔥🔥
+
+let items = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+document.getElementById("order-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let email = document.querySelector("input[type='email']").value;
+    let address = document.querySelectorAll("input[type='text']")[1].value;
+
+    let nameError = document.getElementById("nameError");
+    let phoneError = document.getElementById("phoneError");
+
+    nameError.innerHTML = "";
+    phoneError.innerHTML = "";
+
+    let valid = true;
+
+    if (!/^[A-Za-z ]+$/.test(name)) {
+        nameError.innerHTML = "Name must contain only letters.";
+        valid = false;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        phoneError.innerHTML = "Phone must be 10 digits.";
+        valid = false;
+    }
+
+    if (!valid) return;
+
+    fetch("/check-login")
+        .then(res => res.json())
+        .then(data => {
+            if (!data.logged_in) {
+                window.location.href = "/signup";
+                return;
+            }
+
+            fetch("/place-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    customer_name: name,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    items: items,
+                    total: items.reduce((sum, i) => sum + i.total, 0)
+                })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === "success") {
+                    document.getElementById("order-success").style.display = "block";
+                    localStorage.removeItem("cartItems");
+                    document.getElementById("order-success")
+                        .scrollIntoView({ behavior: "smooth" });
+                } else {
+                    alert("Order failed!");
+                }
+            });
+        });
+});
+
+
+</script>
+
+
+
+</body>
+</html>

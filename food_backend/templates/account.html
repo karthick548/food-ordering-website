@@ -1,0 +1,63 @@
+
+    <!-- Navigation Section End -->
+<h2>Welcome, {{ session['user_name'] }}</h2>
+<p>Email: {{ session['email'] }}</p>
+
+
+<div class="container" style="margin-top:130px;">
+
+    <h2>Your Order History</h2>
+    <p>Below are all your past orders.</p>
+    <br>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div style="
+                border:1px solid #ccc;
+                padding:15px;
+                border-radius:10px;
+                margin-bottom:15px;
+                background:#fff;
+            ">
+                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                <p><strong>Total:</strong> ₹{{ order.total }}</p>
+                <p><strong>Items:</strong> {{ order.items }}</p>
+
+                <button 
+                    class="btn-primary cancel-btn" 
+                    data-id="{{ order.id }}" 
+                    style="background:red; margin-top:10px;"
+                >
+                    Cancel Order
+                </button>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+
+</div>
+
+<script>
+document.querySelectorAll(".cancel-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        let id = this.getAttribute("data-id");
+
+        if(confirm("Are you sure you want to cancel this order?")) {
+
+            fetch(`/cancel-order/${id}`, { method: "POST" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Order cancelled!");
+                    location.reload();
+                } else {
+                    alert("Error cancelling order.");
+                }
+            });
+
+        }
+    });
+});
+</script>
